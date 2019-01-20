@@ -9,7 +9,9 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends CrudRepository<Student, Long> {
 
-    List<Student> getAllByIdIsNotNull();
+    List<Student> findAll();
+
+    List<Student> findByNazwiskoStartsWithIgnoringCase(String nazwisko);
 
     List<Student> getById(long id);
 
