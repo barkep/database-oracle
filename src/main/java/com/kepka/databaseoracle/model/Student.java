@@ -11,8 +11,8 @@ public class Student {
     private String telefon;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STUDENT_SEQ")
-    @SequenceGenerator(sequenceName = "STUDENT_SEQ", allocationSize = 1, name = "STUD_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(sequenceName = "STUDENT_SEQ", name = "STUDENT_SEQ")
     @Column(name = "ID")
     public long getId() {
         return id;

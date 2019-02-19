@@ -22,22 +22,24 @@ public class StudentEditor extends VerticalLayout implements KeyNotifier {
     private final StudentRepository studentRepository;
     private Student student;
 
-    TextField imie = new TextField("imie");
-    TextField nazwisko = new TextField("nazwisko");
-    TextField telefon = new TextField("telefon");
+    private TextField imie = new TextField("imie");
 
-    Button save = new Button("Zapisz", VaadinIcon.CHECK.create());
-    Button cancel = new Button("Anuluj");
-    Button delete = new Button("Usuń", VaadinIcon.TRASH.create());
+    private Button cancel = new Button("Anuluj");
 
-    HorizontalLayout actions = new HorizontalLayout(save, cancel, delete);
-
-    Binder<Student> binder = new Binder<>(Student.class);
+    private Binder<Student> binder = new Binder<>(Student.class);
     private ChangeHandler changeHandler;
 
     @Autowired
     public StudentEditor(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+
+        TextField telefon = new TextField("telefon");
+        telefon.setMaxLength(9);
+
+        Button save = new Button("Zapisz", VaadinIcon.CHECK.create());
+        Button delete = new Button("Usuń", VaadinIcon.TRASH.create());
+        HorizontalLayout actions = new HorizontalLayout(save, cancel, delete);
+        TextField nazwisko = new TextField("nazwisko");
         add(imie, nazwisko, telefon, actions);
 
         binder.bindInstanceFields(this);
@@ -73,12 +75,12 @@ public class StudentEditor extends VerticalLayout implements KeyNotifier {
         imie.focus();
     }
 
-    void delete() {
+    private void delete() {
         studentRepository.delete(student);
         changeHandler.onChange();
     }
 
-    void save() {
+    private void save() {
         studentRepository.save(student);
         changeHandler.onChange();
     }
